@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794967836091,
+      "tag": "0000_workspace_entities_and_permissions",
+      "breakpoints": true
+    }
+  ]
+}

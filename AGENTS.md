@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application architecture
+
+- Store migrated entities in typed, validated JSON records with server-controlled ownership; source fields and original IDs remain representable without unsafe source SDK execution.
+- Keep app data mutations and AI execution in authenticated TanStack server functions; browser controls never determine permissions.
+- Use a public first-screen workspace with inline sign-in for actions, and authenticated route children for private collections.
+- Keep external sync destinations server-allowlisted; never fetch arbitrary user-supplied URLs.
