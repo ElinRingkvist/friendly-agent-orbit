@@ -32,7 +32,7 @@ export const sendMessage = createServerFn({method:"POST"}).middleware([requireSu
     ]);
     if(history.error || memory.error || rules.error) throw new Error("Could not load conversation context.");
     const transcript=(history.data??[]).reverse().map(row=>JSON.stringify(row.data)).join("\n");
-    const input: NonNullable<import("@lovable.dev/ai-gateway").RequestFor<"responses","openai/gpt-6.1-sol">["input"]> = [{role:"user",content:[{type:"input_text",text:`Conversation:\n${transcript}\n${data.meal ? 'Analyze the attached meal. Give approximate calories and macros, describe uncertainty, and provide general nutrition guidance, not a diagnosis.' : ''}`}]}];
+    const input: Exclude<NonNullable<import("@lovable.dev/ai-gateway").ResponsesFieldsByModel["openai/gpt-6.1-sol"]["input"]>,string> = [{role:"user",content:[{type:"input_text",text:`Conversation:\n${transcript}\n${data.meal ? 'Analyze the attached meal. Give approximate calories and macros, describe uncertainty, and provide general nutrition guidance, not a diagnosis.' : ''}`}]}];
     if(data.attachment){
       if(!safeAttachmentPath(data.attachment.path,context.userId)) throw new Error("Attachment unavailable.");
       const signed=await context.supabase.storage.from("workspace-files").createSignedUrl(data.attachment.path,300);

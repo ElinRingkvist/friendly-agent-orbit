@@ -1,0 +1,8 @@
+import {useEffect,useState} from 'react';
+import {createFileRoute,Link} from '@tanstack/react-router';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
+import {supabase} from '@/integrations/supabase/client';
+import {pageHead} from '@/lib/workspace/meta';
+export const Route=createFileRoute('/reset-password')({head:()=>pageHead('Set a new password — Private workspace','Securely set your new account password after email verification.'),component:Page});
+function Page(){const [valid,setValid]=useState(false);const [password,setPassword]=useState('');const [message,setMessage]=useState('');const [busy,setBusy]=useState(false);useEffect(()=>{if(window.location.hash.includes('type=recovery'))setValid(true);const {data}=supabase.auth.onAuthStateChange(event=>{if(event==='PASSWORD_RECOVERY')setValid(true)});return()=>data.subscription.unsubscribe()},[]);return <main className="auth-page"><form className="w-full max-w-sm space-y-5" onSubmit={async e=>{e.preventDefault();setBusy(true);const result=await supabase.auth.updateUser({password});setMessage(result.error?.message??'Password updated. You can now sign in.');setBusy(false)}}><h1 className="text-2xl font-medium">Set a new password</h1>{valid?<><Input aria-label="New password" type="password" minLength={8} required value={password} onChange={e=>setPassword(e.target.value)}/><Button disabled={busy} className="w-full">Update password</Button></>:<p>Open the password reset link from your email to continue.</p>}{message&&<p role="status">{message}</p>}<Button asChild variant="link"><Link to="/auth">Back to sign in</Link></Button></form></main>}
