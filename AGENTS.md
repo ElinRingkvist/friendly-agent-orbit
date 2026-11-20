@@ -33,5 +33,6 @@ use the editor.
 
 - Store migrated entities in typed, validated JSON records with server-controlled ownership; source fields and original IDs remain representable without unsafe source SDK execution.
 - Keep app data mutations and AI execution in authenticated TanStack server functions; browser controls never determine permissions.
-- Use a public first-screen workspace with inline sign-in for actions, and authenticated route children for private collections.
+- Use public workspace shells with inline sign-in; every private read and mutation is authenticated server-side or protected by owner-scoped RLS.
 - Keep external sync destinations server-allowlisted; never fetch arbitrary user-supplied URLs.
+- Parse routine timing with cron-parser in UTC and use one hourly managed callback; disabling routines on AI gateway failures prevents repeated automatic spending.

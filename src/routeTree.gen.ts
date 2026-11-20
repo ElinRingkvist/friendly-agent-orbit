@@ -16,6 +16,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ChatIdRouteImport } from './routes/chat/$id'
+import { Route as ApiPublicJobsRoutinesRouteImport } from './routes/api/public/jobs/routines'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,11 @@ const ChatIdRoute = ChatIdRouteImport.update({
   path: '/chat/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicJobsRoutinesRoute = ApiPublicJobsRoutinesRouteImport.update({
+  id: '/api/public/jobs/routines',
+  path: '/api/public/jobs/routines',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/chat/$id': typeof ChatIdRoute
+  '/api/public/jobs/routines': typeof ApiPublicJobsRoutinesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/chat/$id': typeof ChatIdRoute
+  '/api/public/jobs/routines': typeof ApiPublicJobsRoutinesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/chat/$id': typeof ChatIdRoute
+  '/api/public/jobs/routines': typeof ApiPublicJobsRoutinesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/chat/$id'
+    | '/api/public/jobs/routines'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/chat/$id'
+    | '/api/public/jobs/routines'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/chat/$id'
+    | '/api/public/jobs/routines'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +131,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   SettingsRoute: typeof SettingsRoute
   ChatIdRoute: typeof ChatIdRoute
+  ApiPublicJobsRoutinesRoute: typeof ApiPublicJobsRoutinesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/jobs/routines': {
+      id: '/api/public/jobs/routines'
+      path: '/api/public/jobs/routines'
+      fullPath: '/api/public/jobs/routines'
+      preLoaderRoute: typeof ApiPublicJobsRoutinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   SettingsRoute: SettingsRoute,
   ChatIdRoute: ChatIdRoute,
+  ApiPublicJobsRoutinesRoute: ApiPublicJobsRoutinesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

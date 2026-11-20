@@ -2,12 +2,13 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { entitySchema, recordMutation, validateRecord, approvalState } from "./validation";
+import {nextRoutineTime} from "./schedule";
 
 export const listRecords = createServerFn({method:"POST"}).middleware([requireSupabaseAuth]).inputValidator(z.object({entity:entitySchema.optional(),conversationId:z.string().uuid().optional(),search:z.string().trim().max(200).optional(),offset:z.number().int().min(0).default(0)})).handler(async({data,context})=>{
+  if(data.search){const result=await context.supabase.rpc("search_workspace",{search_term:data.search});if(result.error)throw new Error(result.error.message);return result.data;}
   let query=context.supabase.from("workspace_records").select("*").order("updated_at",{ascending:false}).range(data.offset,data.offset+99);
   if(data.entity) query=query.eq("entity",data.entity);
   if(data.conversationId) query=query.eq("data->>conversation_id",data.conversationId);
-  if(data.search) query=query.ilike("data::text",`%${data.search.replace(/[%_]/g,"")}%`);
   const result=await query;
   if(result.error) throw new Error(result.error.message);
   return result.data;
@@ -16,6 +17,7 @@ export const listRecords = createServerFn({method:"POST"}).middleware([requireSu
 export const saveRecord = createServerFn({method:"POST"}).middleware([requireSupabaseAuth]).inputValidator(recordMutation).handler(async({data,context})=>{
   if(["Message","AgentAction","EngineKey"].includes(data.entity)) throw new Error("This record is controlled by the server.");
   const record=validateRecord(data.entity,data.data);
+  if(data.entity === "Routine" && record["trigger_type"] !== "event" && typeof record["schedule"] === "string" && record["schedule"]){record["next_run_at"]=nextRoutineTime(record["schedule"]);}
   for(const key of ["agent_id","conversation_id"]){
     const id=record[key];
     if(typeof id !== "string" || !id) continue;

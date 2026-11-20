@@ -2,20 +2,110 @@
   "source": "base44",
   "source_url": "https://nexus-tacky-agent-flow.base44.app",
   "capabilities": [
-    {"capability":"code and routes","source":"pasted source and 40 attachments","outcome":"recreate on TanStack","status":"in_progress","next_action":"implement workspace and entity views"},
-    {"capability":"schema","source":"13 entity definitions plus User role","outcome":"migrate","status":"in_progress","next_action":"create Cloud tables and authorization"},
-    {"capability":"records","source":"no exports supplied","outcome":"migrate","status":"pending","next_action":"Base44 Dashboard > Data > each table > Export CSV"},
-    {"capability":"auth identities and ownership mapping","source":"Base44 auth","outcome":"migrate","status":"pending","next_action":"Base44 Settings > App Users export including original IDs and verified emails"},
-    {"capability":"authorization","source":"owner-or-admin entity rules","outcome":"recreate server-enforced rules","status":"in_progress","next_action":"protect roles and owner data"},
-    {"capability":"uploaded file bytes","source":"private upload and signed URL calls","outcome":"migrate new uploads; original bytes pending","status":"pending","next_action":"supply existing uploaded files if any"},
-    {"capability":"AI chat and meal analysis","source":"chat and MealLog UI; execution source missing","outcome":"recreate","status":"in_progress","next_action":"implement authenticated AI and verify"},
-    {"capability":"external providers","source":"Google AI and Tavily names supplied; no execution call sites","outcome":"retain available provider intent","status":"pending","next_action":"verify configured Google key and securely replace exposed Tavily key"},
-    {"capability":"public endpoints, callbacks and webhooks","source":"no source supplied","outcome":"unknown","status":"pending","next_action":"provide any existing endpoint definitions to preserve external callers"},
-    {"capability":"schedules and syncs","source":"Routine and SyncJob definitions; execution source missing","outcome":"recreate","status":"in_progress","next_action":"build execution and managed scheduling"},
-    {"capability":"email and MFA","source":"Base44 auth UI","outcome":"Cloud email/password and supported MFA","status":"in_progress","next_action":"verify hosted settings and account flows"},
-    {"capability":"payments and analytics","source":"waitlist tiers; no billing call sites detected","outcome":"no active billing detected in supplied source","status":"reviewed","next_action":"preserve any later-supplied production integrations"},
-    {"capability":"feedback","source":"Typeform URL","outcome":"preserve","status":"in_progress","next_action":"link feedback"},
-    {"capability":"cutover","source":"Base44 production site","outcome":"pending publication","status":"pending","next_action":"publish and update external URLs after verification"},
-    {"capability":"verification","source":"new implementation","outcome":"browser and business-flow tests","status":"in_progress","next_action":"verify create/read/update/delete, chat, and private access"}
+    {
+      "capability": "code and routes",
+      "source": "pasted source and 40 attachments",
+      "outcome": "recreate on TanStack",
+      "status": "implemented",
+      "next_action": "All supplied entity collections, chat, auth, search and settings render; source pages not supplied cannot be compared."
+    },
+    {
+      "capability": "schema",
+      "source": "13 entity definitions plus User role",
+      "outcome": "migrate",
+      "status": "implemented",
+      "next_action": "Cloud schema applied; 13 entity definitions retained with private ownership."
+    },
+    {
+      "capability": "records",
+      "source": "no exports supplied",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Base44 Dashboard > Data > each table > Export CSV"
+    },
+    {
+      "capability": "auth identities and ownership mapping",
+      "source": "Base44 auth",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Base44 Settings > App Users export including original IDs and verified emails"
+    },
+    {
+      "capability": "authorization",
+      "source": "owner-or-admin entity rules",
+      "outcome": "recreate server-enforced rules",
+      "status": "partially_verified",
+      "next_action": "Owner CRUD and signed-out privacy tested; cross-account/admin regression checks still required."
+    },
+    {
+      "capability": "uploaded file bytes",
+      "source": "private upload and signed URL calls",
+      "outcome": "migrate new uploads; original bytes pending",
+      "status": "pending",
+      "next_action": "supply existing uploaded files if any"
+    },
+    {
+      "capability": "AI chat and meal analysis",
+      "source": "chat and MealLog UI; execution source missing",
+      "outcome": "recreate",
+      "status": "partially_verified",
+      "next_action": "Real chat reply verified; image/PDF meal analysis and persistent structured meal extraction remain unverified."
+    },
+    {
+      "capability": "external providers",
+      "source": "Google AI and Tavily names supplied; no execution call sites",
+      "outcome": "retain available provider intent",
+      "status": "pending",
+      "next_action": "verify configured Google key and securely replace exposed Tavily key"
+    },
+    {
+      "capability": "public endpoints, callbacks and webhooks",
+      "source": "no source supplied",
+      "outcome": "unknown",
+      "status": "pending",
+      "next_action": "provide any existing endpoint definitions to preserve external callers"
+    },
+    {
+      "capability": "schedules and syncs",
+      "source": "Routine and SyncJob definitions; execution source missing",
+      "outcome": "recreate",
+      "status": "partially_verified",
+      "next_action": "Manual routine run and authenticated hourly callback verified. Publish to activate hosted callback; live sync needs an authorized destination. Event-trigger routines and automatic sync cadence remain pending."
+    },
+    {
+      "capability": "email and MFA",
+      "source": "Base44 auth UI",
+      "outcome": "Cloud email/password and supported MFA",
+      "status": "partially_verified",
+      "next_action": "Email/password enabled; signed-in session verified. Email delivery/recovery and Base44 MFA migration not verified; MFA management UI remains pending."
+    },
+    {
+      "capability": "payments and analytics",
+      "source": "waitlist tiers; no billing call sites detected",
+      "outcome": "no active billing detected in supplied source",
+      "status": "reviewed",
+      "next_action": "preserve any later-supplied production integrations"
+    },
+    {
+      "capability": "feedback",
+      "source": "Typeform URL",
+      "outcome": "preserve",
+      "status": "implemented",
+      "next_action": "Typeform link retained."
+    },
+    {
+      "capability": "cutover",
+      "source": "Base44 production site",
+      "outcome": "pending publication",
+      "status": "pending",
+      "next_action": "publish and update external URLs after verification"
+    },
+    {
+      "capability": "verification",
+      "source": "new implementation",
+      "outcome": "browser and business-flow tests",
+      "status": "partially_verified",
+      "next_action": "9 tests passed; mobile, CRUD, settings, real chat, manual routine, search and callback auth verified. Remaining capabilities are explicitly pending."
+    }
   ]
 }
