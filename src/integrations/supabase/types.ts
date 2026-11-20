@@ -157,6 +157,24 @@ export type Database = {
         }
         Returns: boolean
       }
+      search_workspace: {
+        Args: { search_term: string }
+        Returns: {
+          created_at: string
+          data: Json
+          entity: string
+          id: string
+          original_id: string | null
+          owner_id: string
+          updated_at: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "workspace_records"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
     }
     Enums: {
       app_role: "admin" | "user"
