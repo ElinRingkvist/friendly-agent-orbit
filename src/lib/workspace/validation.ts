@@ -17,7 +17,7 @@ export function validateRecord(entity: Entity, input: unknown): Record<string, s
   return z.object(shape).strict().parse(input);
 }
 export const recordMutation = z.object({entity:entitySchema,id:z.string().uuid().optional(), data:z.unknown()});
-export const chatInput = z.object({conversationId:z.string().uuid().optional(),agentIds:z.array(z.string().uuid()).max(8).default([]), content:z.string().trim().min(1).max(30000), requestId:z.string().uuid(), attachment:z.object({path:z.string().min(1).max(500),name:z.string().max(200),type:z.string().max(100)}).optional(),meal:z.boolean().default(false),search:z.boolean().default(false)});
+export const chatInput = z.object({conversationId:z.string().uuid().optional(),agentIds:z.array(z.string().uuid()).max(8).default([]), content:z.string().trim().min(1).max(30000), requestId:z.string().uuid(), attachment:z.object({path:z.string().min(1).max(500),name:z.string().max(200),type:z.string().max(100)}).optional(),meal:z.boolean().default(false),automatic:z.boolean().default(false),search:z.boolean().default(false)});
 export function safeAttachmentPath(path:string,userId:string) { return path.startsWith(`${userId}/`) && !path.includes("..") && !path.includes("\\"); }
 export function approvalState(status:string) { return status === "approved" || status === "declined" || status === "changes"; }
 export function allowedSyncEndpoint(endpoint:string,allowed:string[]) {

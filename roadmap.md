@@ -13,3 +13,4 @@
 - [ ] MFA management and email verification/recovery delivery checks — remaining account-flow work, not verified.
 - [ ] Structured meal extraction and image/PDF verification — remaining meal-flow work, not verified.
 - [ ] Cross-user and administrator permission regression checks — remaining verification, not claimed complete.
+- [ ] Automatic meal photo consent, camera/shortcut capture, private structured analysis and end-to-end verification.

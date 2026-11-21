@@ -56,3 +56,9 @@ export const savePreferences = createServerFn({method:"POST"}).middleware([requi
   if(result.error) throw new Error(result.error.message);
   return {success:true};
 });
+
+export const saveMealConsent=createServerFn({method:'POST'}).middleware([requireSupabaseAuth]).inputValidator(z.object({enabled:z.boolean()})).handler(async({data,context})=>{
+ const result=await context.supabase.from('account_preferences').upsert({user_id:context.userId,auto_analyze_meals:data.enabled,meal_consent_asked:true,updated_at:new Date().toISOString()});
+ if(result.error)throw new Error('Could not save meal photo consent.');
+ return {success:true};
+});

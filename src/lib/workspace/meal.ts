@@ -1,0 +1,7 @@
+import {z} from 'zod';
+
+const nutrient=z.number().finite().min(0);
+export const mealAnalysis=z.object({food_items:z.array(z.object({name:z.string().min(1).max(200),portion:z.string().max(200)}).strict()).min(1).max(30),calories:nutrient,protein:nutrient,carbs:nutrient,fats:nutrient,uncertainty:z.string().min(1).max(2000)}).strict();
+export const mealJsonSchema={type:'object',additionalProperties:false,required:['food_items','calories','protein','carbs','fats','uncertainty'],properties:{food_items:{type:'array',items:{type:'object',additionalProperties:false,required:['name','portion'],properties:{name:{type:'string'},portion:{type:'string'}}}},calories:{type:'number'},protein:{type:'number'},carbs:{type:'number'},fats:{type:'number'},uncertainty:{type:'string'}}};
+export function mealSummary(meal:z.infer<typeof mealAnalysis>){return `${meal.food_items.map(item=>`${item.name} (${item.portion})`).join(', ')}\n\nEstimated calories: ${meal.calories} kcal\nProtein: ${meal.protein} g · Carbs: ${meal.carbs} g · Fats: ${meal.fats} g\n\n${meal.uncertainty}`;}
+export function shouldAutoAnalyze(enabled:boolean,mealPhoto:boolean,mime:string){return enabled&&mealPhoto&&mime.startsWith('image/');}

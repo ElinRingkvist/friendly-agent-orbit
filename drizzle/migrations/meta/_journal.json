@@ -15,6 +15,13 @@
       "when": 1795135120138,
       "tag": "0001_private_workspace_uploads_and_search",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795229362135,
+      "tag": "0002_private_meal_analysis",
+      "breakpoints": true
     }
   ]
 }

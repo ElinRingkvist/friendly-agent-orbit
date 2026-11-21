@@ -16,19 +16,25 @@ export type Database = {
     Tables: {
       account_preferences: {
         Row: {
+          auto_analyze_meals: boolean
           marketing_consent: boolean
+          meal_consent_asked: boolean
           theme: string
           updated_at: string
           user_id: string
         }
         Insert: {
+          auto_analyze_meals?: boolean
           marketing_consent?: boolean
+          meal_consent_asked?: boolean
           theme?: string
           updated_at?: string
           user_id: string
         }
         Update: {
+          auto_analyze_meals?: boolean
           marketing_consent?: boolean
+          meal_consent_asked?: boolean
           theme?: string
           updated_at?: string
           user_id?: string
@@ -67,6 +73,59 @@ export type Database = {
           {
             foreignKeyName: "execution_runs_record_id_fkey"
             columns: ["record_id"]
+            isOneToOne: false
+            referencedRelation: "workspace_records"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meals: {
+        Row: {
+          calories: number
+          carbs: number
+          conversation_id: string
+          created_at: string
+          fats: number
+          food_items: Json
+          id: string
+          photo_path: string
+          protein: number
+          request_id: string
+          uncertainty: string
+          user_id: string
+        }
+        Insert: {
+          calories: number
+          carbs: number
+          conversation_id: string
+          created_at?: string
+          fats: number
+          food_items: Json
+          id?: string
+          photo_path: string
+          protein: number
+          request_id: string
+          uncertainty: string
+          user_id: string
+        }
+        Update: {
+          calories?: number
+          carbs?: number
+          conversation_id?: string
+          created_at?: string
+          fats?: number
+          food_items?: Json
+          id?: string
+          photo_path?: string
+          protein?: number
+          request_id?: string
+          uncertainty?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meals_conversation_id_fkey"
+            columns: ["conversation_id"]
             isOneToOne: false
             referencedRelation: "workspace_records"
             referencedColumns: ["id"]
@@ -150,6 +209,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      complete_meal_analysis: {
+        Args: {
+          p_analysis: Json
+          p_content: string
+          p_conversation_id: string
+          p_photo_path: string
+          p_request_id: string
+          p_run_id: string
+          p_user_id: string
+        }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
